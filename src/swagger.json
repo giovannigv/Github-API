@@ -1,0 +1,97 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Github API",
+        "description": "This is a test for Cocus, using Github API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/v1",
+    "schemes": ["http"],
+    "paths":{
+        "/api/github/{user}/repositories":{
+            "get":{
+                "tags": ["Repositories"],
+                "summary": "Get repositories from a user",
+                "consumes":["application/json"],
+                "produces": ["application/json"],
+                "parameters": [{
+                    "name":"user",
+                    "in": "path",
+                    "description": "Username from Github",
+                    "required":true,
+                    "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Repositories"
+                        }
+                    },
+                    "404":{
+                        "description": "Not Find",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "406":{
+                        "description": "Invalid Accept header",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Repositories":{
+            "type":"object",
+            "properties": {
+                "repositoryName":{
+                    "type":"string",
+                    "description": "Repository name"
+                },
+                "owner":{
+                    "type":"string",
+                    "description": "Repository owner"
+                },
+                "branch":{
+                    "$ref": "#/definitions/Branchs"
+                }
+            }
+        },
+        "Branchs":{
+            "type":"object",
+            "properties": {
+                "name":{
+                    "type":"string",
+                    "description": "Branch name"
+                },
+                "lastCommit":{
+                    "type":"string",
+                    "description": "Last commit in branch"
+                }
+            }
+        },
+        "Error":{
+            "type":"object",
+            "properties": {
+                "status":{
+                    "type":"number",
+                    "description": "Code status"
+                },
+                "Message":{
+                    "type":"string",
+                    "description": "Error Message"
+                }
+            }
+        }
+    }
+}

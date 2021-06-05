@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    environment {
+        CI = 'true' 
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                input message: 'Build Started...'
+                sh 'npm install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                input message: 'Test Started...'
+                sh 'npm test'
+            }
+        }
+
+        stage('Deliver') {
+            steps {
+                input message: 'Deliver Started...'
+                sh 'npm run build'
+                sh 'npm start'
+            }
+        }
+    }
+}
