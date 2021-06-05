@@ -1,6 +1,6 @@
 # Github API
 
-Github API is an express app using typescript to find all repositories and branch from a user
+Github API is an express app using typescript and axios to find not forked repositories and branch from a user
 
 ## Installation
 Use the package manager [npm](https://www.npmjs.com/) to install Github API.
